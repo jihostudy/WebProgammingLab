@@ -14,9 +14,9 @@ $(document).ready(function () {
                 url: "/login",
                 type: "post",
                 data: data,
-                // contentType: "application/x-www-form-urlencoded",                
+                contentType: "application/json",                
                 error: function (e) {
-                    alert("로그인 실패");
+                    alert("알맞은 아이디와 비밀번호를 확인하세요");
                 },
             });
         }
@@ -34,13 +34,16 @@ $(document).ready(function () {
                 type: "post",
                 data: data,
                 // contentType: "application/x-www-form-urlencoded",               
+                success: function(e) {
+                    alert("Successfully Registered!");
+                }
                 error: function (e) {
                     alert("Register Failed!");
                 },
             });
         }
         else {
-            alert("공백입니다. 다시 입력해주세요");
+            alert("등록하고자 하는 아이디, 비밀번호를 입력하세요");
         }
     });
 });

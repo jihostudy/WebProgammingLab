@@ -38,6 +38,9 @@ button {
     cursor: pointer;
 }
 
+#id, #password {
+    text-align: center;
+}
 #id, #password::placeholder {    
     text-align: center;    
 }

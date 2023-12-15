@@ -39,7 +39,7 @@ def get_db():
     finally:
         db.close()
 
-# 2.2. 쿠키가 없으면 자동으로 여기가 실행됨
+# 0-2. 쿠키가 없으면 자동으로 여기가 실행됨
 @app.exception_handler(NotAuthenticatedException)
 def auth_exception_handler(req: Request, exc: NotAuthenticatedException):
     """
@@ -48,7 +48,7 @@ def auth_exception_handler(req: Request, exc: NotAuthenticatedException):
     print("Entered Here")
     return templates.TemplateResponse("login.html",{"request":req})
 
-# 2.1. 쿠키가 있으면 db에서 username에 해당하는 객체를 가져온다.
+# 0-1. 쿠키가 있으면 db에서 username에 해당하는 객체를 가져온다.
 @manager.user_loader()
 def get_user(username: str, db: Session = None):
     if not db:        
@@ -56,18 +56,19 @@ def get_user(username: str, db: Session = None):
             return db.query(User).filter(User.username == username).first()    
     return db.query(User).filter(User.username == username).first()
 
-# #1. loginManager는 쿠키가 있는지 확인한다.
+# 0. loginManager는 쿠키가 있는지 확인한다.
 @app.get("/")
 def get_root(req: Request, user=Depends(manager)):
     return templates.TemplateResponse("main.html",{"request":req})
 
 #1. 로그인하기    
 @app.post('/login')
-def login(response: Response, data: OAuth2PasswordRequestForm = Depends()):
+def login(response: Response,req: Request, data: OAuth2PasswordRequestForm = Depends()):
     username = data.username
     password = data.password
     
     user = get_user(username)
+    print("post login entered")
     if not user:
         print("Not found user")
         raise InvalidCredentialsException
@@ -80,8 +81,12 @@ def login(response: Response, data: OAuth2PasswordRequestForm = Depends()):
         data = {'sub': username}
     )
     manager.set_cookie(response, access_token)
-    # return {'access_token': access_token}
-    return RedirectResponse(url="/main.html")
+    # return {'access_token': access_token}    
+    return templates.TemplateResponse("main.html",{"request":req})
+@app.get("/main")
+def get_main(req: Request):
+    return templates.TemplateResponse("main.html",{"request":req})
+
 
 #2. 등록하기
 @app.post('/register')
@@ -97,7 +102,7 @@ def register_user(response: Response,
             data = {'sub': username}
         )
         manager.set_cookie(response, access_token)
-        return RedirectResponse(url="/main.html")
+        return "User Registered"
     else:
         return "Failed"
     
