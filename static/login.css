@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "맑은 고딕";
+    font-weight: bold;
+}
+html {
+    /* 전체 페이지 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+body {
+    width: 60%;
+    height: 70%;
+    border: 10px solid black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+
+button {
+    border: 2px solid red;    
+    width: 100px;
+    height:30px;
+
+    margin: 30px;
+    cursor: pointer;
+}
+
+#id, #password::placeholder {    
+    text-align: center;    
+}

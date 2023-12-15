@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='login.css') }}" />
+    <script defer src="{{ url_for('static', path='login.js') }}" type="text/javascript"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>카카오톡(로그인)</title>
+</head>
+<body>    
+    <div>SKKU Talk</div>
+    <div id="buttons">
+        <input id="id" type="text" placeholder="ID"></input>
+        <input id="password" type="text" placeholder="Password"></input>
+        <button id="login">Login</button>
+        <button id="register">Register</button>
+    </div>    
+</body>
+</html>
